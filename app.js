@@ -6,7 +6,7 @@ const bot = new Discord.Client()
 const fs = require('fs')
 const path = require('path')
 
-const http = require('http')
+const https = require('https')
 
 const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'))
 const config = require('./config.json')
@@ -25,7 +25,7 @@ try {
   console.log('error certification files', e)
 }
 
-http.createServer((req, res) => {
+https.createServer(options, (req, res) => {
   res.writeHead(200)
 }).listen(9090)
 
