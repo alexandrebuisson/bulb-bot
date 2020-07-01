@@ -9,15 +9,15 @@ module.exports = {
   guildOnly: true,
   execute(_bot, _config, message, args) {
     const colors = firebase.database.ref('discord/colors')
-    colors.on('value', (snap) => {
+    colors.once('value', (snap) => {
       const allColors = snap.val()
-      const displayColors = new Discord.MessageEmbed()
-      displayColors
-        .setColor('#0099ff')
-        .setTitle('Voici la liste des couleurs')
-      if (!_.isEmpty(allColors) && args[0] === undefined) {
+      let data = []
+      if (!_.isEmpty(allColors) && _.isEmpty(data)) {
+        let displayColors = new Discord.MessageEmbed()
+        displayColors
+          .setColor('#0099ff')
+          .setTitle('Voici la liste des couleurs')
         const keys = Object.keys(allColors)
-        const data = []
         keys.map((i) => data.push({ ...allColors[i] }))
         data.map((el) => {
           if (el.name === undefined) return
@@ -28,8 +28,10 @@ module.exports = {
               }
             )
         })
+
         setTimeout(() => {
-          return message.channel.send(displayColors)
+          message.channel.send(displayColors)
+          data = []
         }, 400)
       } else {
         return message.channel.send('Aucune couleur pour le moment :c')

@@ -1,5 +1,4 @@
 const firebase = require('firebase')
-require('firebase/auth')
 require('firebase/database')
 
 const firebaseConfig = {

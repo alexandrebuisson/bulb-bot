@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const Discord = require('discord.js')
 
 const bot = new Discord.Client()
@@ -86,10 +85,14 @@ bot.on('message', (message) => {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount)
   }
   try {
-    command.execute(bot, config, message, args)
+    command.execute(bot, config, message, args, message.content)
   } catch (error) {
     console.error(error)
-    message.reply('Il y a eu une erreur :c')
+    if (command.name === 'removecolor') {
+      message.reply("La couleur n'existe pas")
+    } else {
+      message.reply('Il y a eu une erreur :c')
+    }
   }
 })
 
