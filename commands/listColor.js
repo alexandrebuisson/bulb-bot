@@ -3,8 +3,8 @@ const _ = require('lodash')
 const Discord = require('discord.js')
 
 module.exports = {
-  name: 'listcolors',
-  aliases: ['colors'],
+  name: 'colors',
+  aliases: ['list'],
   description: "Liste toutes les couleurs disponibles",
   guildOnly: true,
   execute(_bot, _config, message, args) {
@@ -30,11 +30,13 @@ module.exports = {
         })
 
         setTimeout(() => {
+          message.delete()
           message.channel.send(displayColors)
           data = []
         }, 400)
       } else {
-        return message.channel.send('Aucune couleur pour le moment :c')
+        message.delete()
+        return message.channel.send("Il n'existe aucune couleur, !add #ffffff <nom> pour en créer une")
       }
     })
   }

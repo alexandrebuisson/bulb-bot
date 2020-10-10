@@ -12,7 +12,7 @@ module.exports = {
 
     if (!args.length) {
       data.push('Voici toutes mes commandes');
-      data.push(commands.map(command => command.name).join(', '));
+      data.push(commands.filter(f => f.name !== 'message').map(command => command.name).join(', '));
       data.push(`${prefix}help [nom de la commande]\ te permet d'avoir plus d'informations sur une commande`);
 
       return message.author.send(data, { split: true })

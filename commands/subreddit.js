@@ -2,6 +2,7 @@ const randomPuppy = require('random-puppy')
 
 module.exports = {
   name: 'subreddit',
+  aliases: ['r'],
   description: 'Image aléatoire depuis un subreddit spécifique',
   args: true,
   usage: '<nom du subreddit>',

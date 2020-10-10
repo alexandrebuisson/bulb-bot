@@ -1,8 +1,8 @@
 const firebase = require('../db/firebase.config')
 
 module.exports = {
-  name: 'removecolor',
-  aliases: ['-color', 'rm'],
+  name: 'rm',
+  aliases: ['-color'],
   description: "Supprimer une couleur",
   usage: "<nom de la couleur>",
   guildOnly: true,

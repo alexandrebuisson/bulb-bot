@@ -1,8 +1,8 @@
 const firebase = require('../db/firebase.config')
 
 module.exports = {
-  name: 'addcolor',
-  aliases: ['+color', 'add'],
+  name: 'add',
+  aliases: ['addColor', '+color'],
   description: "Ajouter une nouvelle couleur",
   usage: "#ffffff <nom de la couleur>",
   guildOnly: true,
@@ -21,9 +21,11 @@ module.exports = {
             color: args[0]
           })
             .then(() => {
+              message.delete()
               return message.channel.send(`La couleur ${args[1].toLowerCase()} a été ajouté`)
             })
             .catch(() => {
+              message.delete()
               return message.channel.send('Il y a eu une erreur los de la création')
             })
         })

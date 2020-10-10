@@ -2,8 +2,7 @@ const firebase = require('../db/firebase.config')
 const _ = require('lodash')
 
 module.exports = {
-  name: 'setcolor',
-  aliases: ['color=', 'set'],
+  name: 'set',
   description: "Sélectionner une couleur",
   usage: "<nom de la couleur>",
   guildOnly: true,
@@ -24,8 +23,9 @@ module.exports = {
             selected: args[0].toLowerCase()
           })
             .then(() => {
+              message.delete()
               message.member.roles.add(message.member.guild.roles.cache.find(role => role.name === args[0].toLowerCase()))
-              message.channel.send(`Votre couleur a été mis a jour en ${args[0].toLowerCase()}`)
+              message.channel.send(`Votre couleur a été mis a jour en ${args[0].toLowerCase()} ${message.author}`)
             })
             .catch(() => {
               message.channel.send('Il y a eu une erreur lors de la suppresion de la couleur')

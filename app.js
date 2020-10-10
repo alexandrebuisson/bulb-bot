@@ -10,7 +10,6 @@ const https = require('https')
 const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'))
 const config = require('./config.json')
 
-
 let options = {}
 
 try {

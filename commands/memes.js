@@ -56,7 +56,7 @@ function getReactions(msg, message) {
 
 module.exports = {
   name: 'memes',
-  aliases: ['meme', 'lol'],
+  aliases: ['meme'],
   description: 'Meme aléatoire depuis une liste de subreddit',
   guildOnly: true,
   execute(_bot, _config, message, _args) {

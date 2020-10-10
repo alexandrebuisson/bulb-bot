@@ -1,7 +1,8 @@
 module.exports = {
-  name: 'nickname',
+  name: 'nick',
   description: 'Renommer un utilisateur',
   args: true,
+  aliases: ['nickname'],
   guildOnly: true,
   usage: '<@utilisateur> <pseudo>',
   execute(_bot, _config, message, _args) {
@@ -19,10 +20,10 @@ module.exports = {
         try {
           nickedUser.setNickname(nickReason[2])
           message.delete()
-          message.channel.send(`Hoo pas mal ce nouveau nom <@${tagUser}>`)
+          message.channel.send(`Le surnom de <@${tagUser}> a été mis a jour`)
         } catch (e) {
           console.error(e)
-          return message.channel.send("Il y a eu une erreur :c")
+          return message.channel.send("Une erreur s'est produite")
         }
       }
     }

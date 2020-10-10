@@ -20,7 +20,8 @@ module.exports = {
             msg.channel.send(`Aucun résultat pour ${args[0]}`)
           }
           if (response.data.posts.length > 0) {
-            const resultsLength = response.data.posts.length
+            const results = response.data.posts.filter((el) => el.type !== "video")
+            const resultsLength = results.length
               let options = {
                 limit: 3600 * 1000,
                 min: 1,
@@ -28,22 +29,23 @@ module.exports = {
                 page: 1
               }
               const pages = []
-              response.data.posts.map((i, index) => {
+              results.map((i, index) => {
+                const params = new URL(results[index].sample_url).searchParams 
                 pages.push({
                   "title": `Résultat page ${index + 1}/${options.max} pour ${args[0]}`,
-                  "url": `${response.data.posts[index].sample_url}`,
+                  "url": `${params.get('url')}`,
                   "color": 43333,
                   "footer": {
                     "icon_url": "https://cdn.discordapp.com/app-icons/708760465999790244/228b2993e942a361518b557ee4511b26.png?size=32",
-                    "text": "Bot made by Alexandre Buisson"
+                    "text": "!r34 recherche"
                   },
                   "image": {
-                    "url": `${response.data.posts[index].sample_url}`
+                    "url": `${params.get('url')}`
                   },
                   "fields": [
                     {
                       "name": "tags associés",
-                      "value": `${response.data.posts[index].tags[0] || '/'}, ${response.data.posts[index].tags[1] || '/'}, ${response.data.posts[index].tags[2] || '/'}, ${response.data.posts[index].tags[3] || '/'}`
+                      "value": `${results[index].tags[0] || '/'}, ${results[index].tags[1] || '/'}, ${results[index].tags[2] || '/'}, ${results[index].tags[3] || '/'}`
                     }
                   ]
                 })
@@ -85,26 +87,29 @@ module.exports = {
                         e.delete()
                       }
                       else if (reaction.emoji.name === '🔄') {
+                        const results = response.data.posts.filter((el) => el.type !== "video")
                         const rnd = chancejs.integer({ min: 0, max: (response.data.posts).length - 1 })
+                        const img = new URL(results[rnd].sample_url).searchParams
+
                         const random = {
                           "title": `Résultat aléatoire pour ${args[0]}`,
-                          "url": `${response.data.posts[rnd].sample_url}`,
+                          "url": `${img.get('url')}`,
                           "color": 43333,
                           "footer": {
                             "icon_url": "https://cdn.discordapp.com/app-icons/708760465999790244/228b2993e942a361518b557ee4511b26.png?size=32",
-                            "text": "Made with ❤  by Alexandre Buisson"
+                            "text": "!r34 recherche"
                           },
                           "image": {
-                            "url": `${response.data.posts[rnd].sample_url}`
+                            "url": `${img.get('url')}`
                           },
                           "fields": [
                             {
                               "name": `Nombre de résultats`,
-                              "value": `${response.data.posts.length}`
+                              "value": `${results.length}`
                             },
                             {
                               "name": "tags associés",
-                              "value": `${response.data.posts[rnd].tags[0] || '/'}, ${response.data.posts[rnd].tags[1] || '/'}, ${response.data.posts[rnd].tags[2] || '/'}, ${response.data.posts[rnd].tags[3] || '/'}`
+                              "value": `${results[rnd].tags[0] || '/'}, ${results[rnd].tags[1] || '/'}, ${results[rnd].tags[2] || '/'}, ${results[rnd].tags[3] || '/'}`
                             }
                           ]
                         }
@@ -126,4 +131,3 @@ module.exports = {
       })
   }
 }
-
