@@ -7,6 +7,7 @@ module.exports = {
   usage: "<nom de la couleur>",
   guildOnly: true,
   execute(_bot, _config, message, args) {
+    if (!message.content.startsWith('!')) return
     const thisRole = message.guild.roles.cache.find((t) => t.name == args[0].toLowerCase())
     message.guild.members.cache.forEach((member) => {
       if (!member.roles.cache.find((t) => t.name == args[0].toLowerCase())) return

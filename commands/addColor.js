@@ -7,6 +7,7 @@ module.exports = {
   usage: "#ffffff <nom de la couleur>",
   guildOnly: true,
   execute(_bot, _config, message, args) {
+    if (!message.content.startsWith('!')) return
     const isHexColor = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/g
     if (isHexColor.test(args[0])) {
       message.member.guild.roles.create({

@@ -60,6 +60,7 @@ module.exports = {
   description: 'Meme aléatoire depuis une liste de subreddit',
   guildOnly: true,
   execute(_bot, _config, message, _args) {
+    if (!message.content.startsWith('!')) return
     const rnd = chancejs.integer({ min: 0, max: 3 })
     randomPuppy(subreddit[rnd].i)
       .then((url) => {

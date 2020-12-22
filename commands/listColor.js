@@ -8,6 +8,7 @@ module.exports = {
   description: "Liste toutes les couleurs disponibles",
   guildOnly: true,
   execute(_bot, _config, message, args) {
+    if (!message.content.startsWith('!')) return
     const colors = firebase.database.ref('discord/colors')
     colors.once('value', (snap) => {
       const allColors = snap.val()

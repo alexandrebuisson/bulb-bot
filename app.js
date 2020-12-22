@@ -39,6 +39,10 @@ bot.on('ready', () => {
   console.log('Bulb est en ligne !')
 })
 
+bot.on('guildMemberAdd', (member) => {
+   member.roles.add(member.guild.roles.cache.find(role => role.name === "intérimaire"))
+})
+
 bot.on('message', (message) => {
   const args = message.content.slice(config.prefix.length).split(/ +/)
   const commandName = args.shift().toLowerCase()
@@ -58,7 +62,7 @@ bot.on('message', (message) => {
   }
 
   if (command.guildOnly && message.channel.type !== 'text') {
-    return message.reply("Malheuresement cette commande n'est pas disponible en DM !")
+    return message.reply("Malheuresement la commande n'est pas disponible en DM !")
   }
 
   if (!cooldowns.has(command.name)) {
@@ -97,10 +101,3 @@ bot.on('message', (message) => {
 
 
 bot.login(config.token)
-
-// Une personne qui rentre sur le serveur accède au salon bienvenue
-// En cours... pour le moment la commande ajoute automatiquement le rôle CGTiste débutant
-bot.on('guildMemberAdd', (member) => {
-   member.guild.channels.cache.get('723284851494617149').send(`Bienvenue a toi ${member.user.username}, tu es maintenant un jeune CGTiste prépare les saucisses !`)
-   member.roles.add(member.guild.roles.cache.find(role => role.name === "CGTiste débutant"))
-})

@@ -5,6 +5,7 @@ module.exports = {
   guildOnly: true,
   usage: 'commande admin',
   execute(_bot, _config, message, args) {
+    if (!message.content.startsWith('!')) return
     if (message.author.id === '144845324861571072') {
       const text = args.join(" ")
       message.delete()

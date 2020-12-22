@@ -7,12 +7,13 @@ module.exports = {
   usage: '[command name]',
   cooldown: 5,
   execute(_bot, _config, message, args) {
+    if (!message.content.startsWith('!')) return
     const data = [];
     const { commands } = message.client;
 
     if (!args.length) {
       data.push('Voici toutes mes commandes');
-      data.push(commands.filter(f => f.name !== 'message').map(command => command.name).join(', '));
+      data.push(commands.filter(f => f.name !== 'message' && f.name !== 'help').map(command => command.name).join(', '));
       data.push(`${prefix}help [nom de la commande]\ te permet d'avoir plus d'informations sur une commande`);
 
       return message.author.send(data, { split: true })

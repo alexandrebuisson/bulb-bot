@@ -2,6 +2,7 @@ module.exports = {
   name: 'uptime',
   description: "Temps qui s'est écoulé depuis le démarrage du BOT",
   execute(bot, _config, message, _args) {
+    if (!message.content.startsWith('!')) return
     let totalSeconds = (bot.uptime / 1000)
     const days = Math.floor(totalSeconds / 86400)
     const hours = Math.floor(totalSeconds / 3600)

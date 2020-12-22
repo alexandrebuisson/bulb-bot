@@ -7,6 +7,7 @@ module.exports = {
   args: true,
   usage: '<nom du subreddit>',
   execute(_bot, _config, message, args) {
+    if (!message.content.startsWith('!')) return
     randomPuppy(args[0])
       .then((url) => {
         message.channel.send(`random image from r/${args[0]} ${url}`)

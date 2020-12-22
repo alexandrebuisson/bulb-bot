@@ -7,6 +7,7 @@ module.exports = {
   usage: "<nom de la couleur>",
   guildOnly: true,
   execute(_bot, _config, message, args) {
+    if (!message.content.startsWith('!')) return
     let data = null
     const checkSelected = firebase.database.ref(`discord/users/${message.author.id}`)
     checkSelected.once('value', (snap) => {

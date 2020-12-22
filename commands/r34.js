@@ -4,22 +4,26 @@ const chancejs = new Chance()
 
 module.exports = {
   name: 'r34',
-  description: 'Images aléatoire depuis r34 (par défaut 100 résultats)',
+  description: 'Images aléatoire depuis r34 (par défaut 100 résultats max)',
   args: true,
   guildOnly: true,
   usage: '<mot clé> <limite (facultatif)>',
   execute(_bot, _config, msg, args) {
+    if (!msg.content.startsWith('!')) return
     axios(`https://r34-json.herokuapp.com/posts?tags=${args[0]}&limit=${args[1] === undefined || args[1] > 500 ? 100 : args[1]}`, {
       method: 'GET',
     })
       .then((response) => {
         if (response.status === 500) {
+          msg.delete()
           msg.channel.send('Il y a eu une erreur !')
         } else {
           if (response.data.posts.length === 0) {
+            msg.delete()
             msg.channel.send(`Aucun résultat pour ${args[0]}`)
           }
           if (response.data.posts.length > 0) {
+            msg.delete()
             const results = response.data.posts.filter((el) => el.type !== "video")
             const resultsLength = results.length
               let options = {
@@ -37,7 +41,7 @@ module.exports = {
                   "color": 43333,
                   "footer": {
                     "icon_url": "https://cdn.discordapp.com/app-icons/708760465999790244/228b2993e942a361518b557ee4511b26.png?size=32",
-                    "text": "!r34 recherche"
+                    "text": "!r34 <mot clé> <limite (facultatif)>"
                   },
                   "image": {
                     "url": `${params.get('url')}`
@@ -97,7 +101,7 @@ module.exports = {
                           "color": 43333,
                           "footer": {
                             "icon_url": "https://cdn.discordapp.com/app-icons/708760465999790244/228b2993e942a361518b557ee4511b26.png?size=32",
-                            "text": "!r34 recherche"
+                            "text": "!r34 <mot clé> <limite (facultatif)>"
                           },
                           "image": {
                             "url": `${img.get('url')}`
